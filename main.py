@@ -22,12 +22,13 @@ def root_endpoint():
 def get_factorial(reading_id:int = Path(..., description="The factorial of a reading you'd like to know.", gt=0, lt=20)):
     return factorial_db[reading_id]
 
-@app.get("/get-factorial-by-reading/")
+@app.get("/get-factorial-by-reading/{number}")
 def get_factorial(number:int = Path(..., description = "The factorial of a reading you'd like to know.", gt=0)):
     for reading_id in factorial_db:
         if factorial_db[reading_id].number == number:
-            return factorial_db[reading_id]
-            #return factorial_calculation(factorial_db[reading_id].number)
+            factorial = factorial_calculation(number)
+            #return factorial_db[reading_id]
+            return factorial
     raise HTTPException(status_code=404, detail='reading not found')
 
 @app.post("/submit-reading/reading_id/")
@@ -37,14 +38,14 @@ def submit_reading(reading_id: int, reading: Reading):
     factorial_db[reading_id] = reading
     return factorial_db[reading_id]
 
-def factorial_calculation(reading: Reading):
+def factorial_calculation(num):
     factorial = 1
-    if reading.number < 0:
+    if num < 0:
         raise ValueError("Factorial is not defined for negative numbers")
-    elif reading.number == 0:
+    elif num == 0:
         factorial = 1 
     else:
-        for i in range(1, reading.number):
+        for i in range(1, num):
             factorial *= i
         return factorial
 
