@@ -6,36 +6,22 @@ from datetime import datetime
 app = FastAPI()
 
 
-class Reading(BaseModel):
-    number: int
-    time: datetime
-    #factorial: Optional[int] = None
-
-    
 factorial_db = {}
 
 @app.get("/")
 def root_endpoint():
     return print('This is the root endpoint.')
-
-@app.get("/get-factorial-by-id/{reading_id}/")
-def get_factorial(reading_id:int = Path(..., description="The factorial of a reading you'd like to know.", gt=0, lt=20)):
-    return factorial_db[reading_id]
-
-@app.get("/get-factorial-by-reading/{number}")
-def get_factorial(number:int = Path(..., description = "The factorial of a reading you'd like to know.", gt=0)):
-    for reading_id in factorial_db:
-        if factorial_db[reading_id].number == number:
-            factorial = factorial_calculation(number)
-            return factorial
-    raise HTTPException(status_code=404, detail='reading not found')
-
-@app.post("/submit-reading/reading_id/")
-def submit_reading(reading_id: int, reading: Reading):
-    if reading_id in factorial_db:
-        raise HTTPException(status_code=400, detail='reading ID already exists')
-    factorial_db[reading_id] = reading
-    return factorial_db[reading_id]
+#Should this endpoint retrive only 1 each time or all readings each time? database needed for latter case?
+@app.get("/get-factorial/{number}")
+def get_factorial(number:int = Path(..., description = "The factorial of a reading you'd like to retrive.", gt=0)):
+    factorial = factorial_calculation(number)
+    return {"Factorial": factorial}
+#Should have both{number}${datetime}?
+@app.post("/submit-reading/{number}")
+def submit_reading(timestamp:str, number: int = Path(..., description = "The number should be a integer.", gt=0)):
+ #maybe should validate timestamp here?
+    factorial_db[number] = timestamp
+    return {"timestamp": timestamp, "Integer":number}
 
 def factorial_calculation(num):
     factorial = 1
