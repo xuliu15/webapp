@@ -27,7 +27,6 @@ def get_factorial(number:int = Path(..., description = "The factorial of a readi
     for reading_id in factorial_db:
         if factorial_db[reading_id].number == number:
             factorial = factorial_calculation(number)
-            #return factorial_db[reading_id]
             return factorial
     raise HTTPException(status_code=404, detail='reading not found')
 
