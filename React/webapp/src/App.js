@@ -72,6 +72,7 @@ const App = () => {
             <tr>
               <th>Count</th>
               <th>Date</th>
+              <th>Factorial</th>
             </tr>
           </thead>
           <tbody>
@@ -79,6 +80,7 @@ const App = () => {
               <tr key={population.id}>
                 <td>{population.count}</td>
                 <td>{population.date}</td>
+                <td>{population.factorial}</td>
               </tr>
             ))}
           </tbody>

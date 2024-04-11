@@ -28,21 +28,20 @@ class PopulationBase(BaseModel):
     count: int
     date: str
 
+
 class PopulationModel(PopulationBase):
     id: int
+    factorial: Optional[int]
 
     class Config:
         from_attributes=True
 
-# class FactorialBase(BaseModel):
-#     number: int
-#     factorial: int
+    def calculate_factorial(self):
+        factorial = 1
+        for i in range(1, self.count + 1):
+            factorial *= i
+        return factorial
 
-# class FactorialModel(FactorialBase):
-#     id: int
-
-#     class Config:
-#         orm_mode=True
 
 def get_db():
     db = SessionLocal()
@@ -66,18 +65,38 @@ async def create_population(population:PopulationBase, db:db_dependency):
 
 @app.get("/population/",response_model=list[PopulationModel])
 async def retrive_factorial(db: db_dependency, skip: int=0, limit: int=100):
-    factorial = db.query(models.Population).offset(skip).limit(limit).all()
-    return factorial
+    # factorial = db.query(models.Population).offset(skip).limit(limit).all()
+    # return factorial
+    population_data = db.query(models.Population).offset(skip).limit(limit).all()
+    population_models = []
+    for data in population_data:
+        population_model = PopulationModel(**data.__dict__)
+        population_model.factorial = population_model.calculate_factorial()
+        population_models.append(population_model)
+    return population_models
 
 
-def factorial_calculation(num):
-    factorial = 1
-    if num < 0:
-        raise ValueError("Factorial is not defined for negative numbers")
-    elif num == 0:
-        factorial = 1 
-    else:
-        for i in range(1, num):
-            factorial *= i
-        return factorial
+
+# def factorial_calculation(num):
+#     factorial = 1
+#     if num < 0:
+#         raise ValueError("Factorial is not defined for negative numbers")
+#     elif num == 0:
+#         factorial = 1 
+#     else:
+#         for i in range(1, num):
+#             factorial *= i
+#         return factorial
+
+#  def factorial_calculation(self):
+#         factorial = 1
+#         if self.count < 0:
+#             raise ValueError("Factorial is not defined for negative numbers")
+#         elif self.count == 0:
+#             factorial = 1 
+#         else:
+#             for i in range(1, self.count+1):
+#                 factorial *= i
+#             self.factorial = factorial 
+#             return self.factorial
 

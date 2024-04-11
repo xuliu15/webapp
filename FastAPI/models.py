@@ -7,10 +7,7 @@ class Population(Base):
     id = Column(Integer, primary_key=True, index=True)
     count = Column(Integer)
     date = Column(String)
+    factorial = Column(Integer)
 
-# class factorial(Base):
-#     __tablename__= "factorial"
+    #update: add a factorial here
 
-#     id = Column(Integer, primary_key=True, index=True)
-#     number = Column(Integer)
-#     factorial = Column(Integer)
