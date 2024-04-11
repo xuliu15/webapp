@@ -64,7 +64,7 @@ async def create_population(population:PopulationBase, db:db_dependency):
     return db_population
 
 
-@app.get("/retrive/",response_model=list[PopulationModel])
+@app.get("/population/",response_model=list[PopulationModel])
 async def retrive_factorial(db: db_dependency, skip: int=0, limit: int=100):
     factorial = db.query(models.Population).offset(skip).limit(limit).all()
     return factorial
