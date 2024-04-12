@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from "react"
-import api from './api'
+import React, { useState, useEffect } from "react";
+import api from './api';
 
 const App = () => {
   const [population, setPopulation] = useState([]);
@@ -7,14 +7,15 @@ const App = () => {
     count: '',
     date: ''
   });
-  const fetchPopulation = async () => {
-    const response = await api.get('/population/');
-    setPopulation(response.data)
-  };
-  
+
   useEffect(() => {
     fetchPopulation();
   }, []);
+
+  const fetchPopulation = async () => {
+    const response = await api.get('/population/');
+    setPopulation(response.data);
+  };
 
   const handleInputChange = (event) => {
     const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
@@ -23,6 +24,7 @@ const App = () => {
       [event.target.name]: value,
     });
   };
+
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     await api.post('/population/', formData);
@@ -53,14 +55,6 @@ const App = () => {
             </input>
           </div>
 
-          <div className="mb-3">
-            <label htmlFor="date" className="form-label">
-              Date
-            </label>
-            <input type="text" className="form-control" id='date' name="date" onChange={handleInputChange} value={formData.date}>
-            </input>
-          </div>
-
           <button type="submit" className="btn btn-primary">
             Submit
           </button>
@@ -68,14 +62,14 @@ const App = () => {
         </form>
 
         <table className="table table-striped table-bordered table-hover">
-          <thead>
+         <thead>
             <tr>
               <th>Count</th>
-              <th>Date</th>
+              <th >Date</th>
               <th>Factorial</th>
             </tr>
-          </thead>
-          <tbody>
+         </thead>
+         <tbody>
             {population.map((population) => (
               <tr key={population.id}>
                 <td>{population.count}</td>
@@ -83,14 +77,14 @@ const App = () => {
                 <td>{population.factorial}</td>
               </tr>
             ))}
-          </tbody>
+         </tbody>
         </table>
 
 
       </div>
     </div>
 
-  )
-}
+  );
+};
 
 export default App;
