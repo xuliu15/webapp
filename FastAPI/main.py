@@ -32,7 +32,7 @@ class PopulationModel(PopulationBase):
     factorial: Optional[int]
 
     class Config:
-        from_attributes=True
+        orm_mode=True
 
     def calculate_factorial(self):
         try:
