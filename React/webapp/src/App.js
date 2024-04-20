@@ -1,14 +1,18 @@
+
 import React, { useState, useEffect } from "react";
 import api from './api';
-
 
 const App = () => {
   const [population, setPopulation] = useState([]);
   const [formData, setFormdata] = useState({
+    id: '',
     count: '',
-    date: ''
+    date: '',
+    factorial: ''
   });
-  const [errorMessage, setErrorMessage] = useState('')
+
+  const [searchQuery, setSearchQuery] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     fetchPopulation();
@@ -19,10 +23,12 @@ const App = () => {
       const response = await api.get('/population/');
       setPopulation(response.data);
     } catch (error) {
-      setErrorMessage("Invalid Input: 'Count' must be an integer.");
-    }  
+        if (error.response) {
+          const status = error.response.status;
+            setErrorMessage(`Server Error: ${status}`);
+          }
+        } 
   };
-
 
   const handleInputChange = (event) => {
     const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
@@ -40,7 +46,6 @@ const App = () => {
       setFormdata({
         count: '',
         date: ''
-    
       });
       setErrorMessage('');
     } catch (error) {
@@ -55,8 +60,28 @@ const App = () => {
         }
       } 
     }
-   } ; 
+  }; 
 
+  const handleSearch = async () => {
+    try {
+      const response = await api.get(`/population/search/?count=${searchQuery}`);
+      setPopulation(response.data);
+      setErrorMessage('');
+    } catch (error) {
+      if (error.response) {
+        const status = error.response.status;
+        if (status === 400) {
+          setErrorMessage("Invalid input: 'Count' cannot be a negative number.");
+        } else if (status === 404) {
+          setErrorMessage("'Count' not found. Submit first.");
+        } else if (status === 422) {
+          setErrorMessage("Invalid input: 'Count' must be an integer.")
+        } else {
+          setErrorMessage(`Server Error: ${status}`);
+        }
+      } 
+    }
+  };
 
   return (
     <div>
@@ -72,28 +97,38 @@ const App = () => {
         <form onSubmit={handleFormSubmit}>
           <div className="mb-3 mt-3">
             <label htmlFor="count" className="form-label">
-              Count
+              Submit a Count
             </label>
-            <input type="text" className="form-control" id='count' name="count" onChange={handleInputChange} value={formData.count}>
-            </input>
+            <div className="input-group">
+              <input type="text" className="form-control" id='count' name="count" onChange={handleInputChange} value={formData.count} />
+              <button type="submit" className="btn btn-primary">
+                Submit
+              </button>
+            </div>
+           </div>   
+          <div className="mb-3 mt-3">
+            <label htmlFor="search" className="form-label">
+              Search by Count
+            </label>
+            <div className="input-group">
+              <input type="text" className="form-control" id="search" name="search" onChange={(event) => setSearchQuery(event.target.value)} value={searchQuery} />
+              <button className="btn btn-primary" type="button" onClick={handleSearch}>
+                Search
+              </button>
+            </div>
           </div>
-
-          <button type="submit" className="btn btn-primary">
-            Submit
-          </button>
-
         </form>
 
         <table className="table table-striped table-bordered table-hover">
-         <thead>
+          <thead>
             <tr>
               <th>ID</th>
               <th>Date</th>
-              <th >Count</th>
+              <th>Count</th>
               <th>Factorial</th>
             </tr>
-         </thead>
-         <tbody>
+          </thead>
+          <tbody>
             {[...population].reverse().map((population) => (
               <tr key={population.id}>
                 <td>{population.id}</td>
@@ -102,15 +137,11 @@ const App = () => {
                 <td>{population.factorial}</td>
               </tr>
             ))}
-         </tbody>
+          </tbody>
         </table>
-
-
       </div>
     </div>
-
   );
 };
 
 export default App;
-
