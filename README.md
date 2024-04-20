@@ -1,6 +1,6 @@
 # Web App
 
-This is a functional web applicaiton that have several features:
+This is a functional web applicaiton that has several features:
 1. Submit a reading.
 2. Display the factorials of all readings ordered by timestamp.
 3. Automatically generate ID to readings. 
