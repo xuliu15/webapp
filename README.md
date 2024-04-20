@@ -31,7 +31,7 @@ Then `python3 -m venv myenv`
 
 #### 5. Activate backend
    
-Go to `cd webapp/FastAPI`
+Go to `cd FastAPI`
 
 Then `uvicorn main:app --reload`
 
