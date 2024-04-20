@@ -47,7 +47,9 @@ Then run `npm start` , a webpage will automatically open.
 
 # How to run unit test
 
-Go to `cd FastAPI`
+Open the folder webapp in VScode
+
+Go to path `cd FastAPI`
 
 Then run `python3 -m unittest`
 
