@@ -29,21 +29,22 @@ class PopulationBase(BaseModel):
 class PopulationModel(PopulationBase):
     id: int
     date: Optional[str]
-    #factorial: Optional[int]
-    factorial: Optional[str]
+    factorial: Optional[int]
 
     class Config:
         orm_mode=True
 
+#For count larger than 170, natural logarithm of factorial is taken. 
     def calculate_factorial(self):
         try:
             if 0 <= self.count < 170:
                 factorial = math.factorial(self.count)
                 return factorial
             elif self.count >= 170:
-                return "Infinity"
+                return math.log(math.factorial(self.count))
         except ValueError:
             return None
+                
     
 def get_db():
     db = SessionLocal()
