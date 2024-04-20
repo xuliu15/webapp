@@ -9,7 +9,7 @@ This is a functional web applicaiton that have several features:
 The backend is built with **FastAPI** and the frontend is built with **React**, partly following the tutorial by Eric Roby (https://www.youtube.com/watch?v=0zb2kohYZIM).
 
 # How to run the app
-**Note**: Following steps are only tested on Mac. 
+**Note**: Following steps are only tested on Mac and VS Code.
 
 #### 1. clone the repository
    
