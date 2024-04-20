@@ -7,6 +7,6 @@ class Population(Base):
     id = Column(Integer, primary_key=True, index=True)
     count = Column(Integer)
     date = Column(String)
-    factorial = Column(Integer)
+    factorial = Column(String)
 
 
