@@ -9,7 +9,7 @@ This is a functional web applicaiton that has several features:
 The backend is built with **FastAPI** and the frontend is built with **React**, partly following the tutorial by Eric Roby (https://www.youtube.com/watch?v=0zb2kohYZIM).
 
 # How to run the app
-**Note**: Following steps are only tested on Mac and VS Code.
+**Note**: Following steps are only tested on Mac.
 
 #### 1. clone the repository
    
@@ -37,11 +37,11 @@ Then run `uvicorn main:app --reload`, click the http link to see backend.
 
 #### 6. Activate frontend
 
-open a new terminal
+Open a new terminal
    
-Go to `cd React/webapp`
+Go to `cd webapp/React/webapp`
 
-In case of error: react-scripts: command not found, install a pacakge `npm install react-scripts` 
+In case of `error: react-scripts: command not found`, install a pacakge `npm install react-scripts` 
 
 Then run `npm start` , a webpage will automatically open. 
 
