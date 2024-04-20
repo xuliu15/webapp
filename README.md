@@ -41,7 +41,7 @@ Open a new terminal
    
 Go to `cd webapp/React/webapp`
 
-In case of `error: react-scripts: command not found`, install a pacakge `npm install react-scripts` 
+In case of `sh: react-scripts: command not found`, install a pacakge `npm install react-scripts` 
 
 Then run `npm start` , a webpage will automatically open. 
 
