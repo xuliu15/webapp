@@ -33,19 +33,23 @@ Then `python3 -m venv myenv`
    
 Go to `cd FastAPI`
 
-Then `uvicorn main:app --reload`
+Then run `uvicorn main:app --reload`, click the http link to see backend.
 
 #### 6. Activate frontend
+
+open a new terminal
    
 Go to `cd React/webapp`
 
-Then `npm start` 
+In case of error: react-scripts: command not found, install a pacakge `npm install react-scripts` 
+
+Then run `npm start` , a webpage will automatically open. 
 
 # How to run unit test
 
 Go to `cd FastAPI`
 
-Then `python3 -m unittest`
+Then run `python3 -m unittest`
 
 
 
