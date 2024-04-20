@@ -17,7 +17,9 @@ The backend is built with **FastAPI** and the frontend is built with **React**, 
 
 #### 2. Set up virtual environment
 
-`python3 -m venv myenv`
+Go to `cd webapp`
+
+Then `python3 -m venv myenv`
 
 #### 3. Activate virtual environment
 
