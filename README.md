@@ -1,36 +1,49 @@
-#Web App
+# Web App
+
 This is a functional web applicaiton that have several features:
 1. Submit a reading.
 2. Display the factorials of all readings ordered by timestamp.
 3. Automatically generate ID to readings. 
 4. Search all submissions by the reading.
 
-The backend is built with FastAPI and the frontend is built with React, partly follwing the tutorial by Eric Roby (https://www.youtube.com/watch?v=0zb2kohYZIM).
+The backend is built with **FastAPI** and the frontend is built with **React**, partly following the tutorial by Eric Roby (https://www.youtube.com/watch?v=0zb2kohYZIM).
 
-#How to run the app
+# How to run the app
+**Note**: Following steps are only tested on Mac. 
 
-1. clone the repository
-git clone https://github.com/xuliu15/webapp.git
+#### 1. clone the repository
+   
+`git clone https://github.com/xuliu15/webapp.git`
 
-2. Set up virtual environment
-python3 -m venv myenv
+#### 2. Set up virtual environment
 
-source myenv/bin/activate
+`python3 -m venv myenv`
 
-3. Install packages
-pip install -r requirements.txt
+#### 3. Activate virtual environment
 
-4. Activate backend
-cd FastAPI
-uvicorn main:app --reload
+`source myenv/bin/activate`
 
-5. Activate frontend
-cd React/webapp
-npm start   
+#### 4. Install packages
+   
+`pip install -r requirements.txt`
 
-#How to run unit test
-cd FastAPI
-python3 -m unittest
+#### 5. Activate backend
+   
+Go to `cd webapp/FastAPI`
+
+Then `uvicorn main:app --reload`
+
+#### 6. Activate frontend
+   
+Go to `cd React/webapp`
+
+Then `npm start` 
+
+# How to run unit test
+
+Go to `cd FastAPI`
+
+Then `python3 -m unittest`
 
 
 
